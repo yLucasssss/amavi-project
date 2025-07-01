@@ -1,0 +1,59 @@
+<section class="welcome-section">
+  <h2>Cadastro de Produto</h2>
+</section>
+
+<section class="cadastro">
+  <form class="form-produto" (ngSubmit)="cadastrarProduto()" #produtoForm="ngForm">
+    <label for="productCode">Código do Produto:</label>
+    <input type="text" id="productCode" name="productCode" [(ngModel)]="produto.codigo" required #productCode="ngModel">
+    <div *ngIf="productCode.invalid && (productCode.dirty || productCode.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="productCode.errors?.['required']">Código do produto é obrigatório.</div>
+    </div>
+
+    <label for="productType">Tipo do Produto:</label>
+    <select id="productType" name="productType" [(ngModel)]="produto.tipo" required #productType="ngModel">
+      <option *ngFor="let tipo of tiposProduto" [value]="tipo.nome">{{ tipo.nome }}</option>
+    </select>
+    <div *ngIf="productType.invalid && (productType.dirty || productType.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="productType.errors?.['required']">Tipo do produto é obrigatório.</div>
+    </div>
+  
+    <label for="productValue">Valor:</label>
+    <select id="productValue" name="productValue" [(ngModel)]="produto.valor" required #productValue="ngModel">
+      <option *ngFor="let valor of valoresProduto" [ngValue]="valor.valor">{{ valor.valor | currency:'BRL' }}</option>
+    </select>
+    <div *ngIf="productValue.invalid && (productValue.dirty || productValue.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="productValue.errors?.['required']">Valor é obrigatório.</div>
+    </div>
+  
+    <button type="submit" [disabled]="!produtoForm.form.valid">Cadastrar Produto</button>
+  </form>      
+</section>
+
+<!-- Success Modal -->
+<ng-template #successModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sucesso!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Produto cadastrado com sucesso!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Error Modal -->
+<ng-template #errorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Erro!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>

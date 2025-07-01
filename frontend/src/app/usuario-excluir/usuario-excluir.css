@@ -1,0 +1,135 @@
+.cadastro {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  max-width: 600px;
+  margin-left: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #d37f7f;
+}
+
+
+.cadastro form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cadastro label {
+  font-weight: bold;
+  color: #dfa1a1;
+  font-size: 14px;
+}
+
+.cadastro input,
+.cadastro select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #dfa1a1;
+  border-radius: 8px;
+  color: #d37f7f;
+  background-color: #fffafc;
+}
+
+.cadastro button[type="submit"] {
+  background-color: #d37f7f;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cadastro button[type="submit"]:hover {
+  background-color: #bf6d6d;
+}
+
+.welcome-section h2 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.user-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  color: #d37f7f;
+}
+
+.user-list li:last-child {
+  border-bottom: none;
+}
+
+.user-list button {
+  background-color: #d37f7f;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.user-list button:hover {
+  background-color: #bf6d6d;
+}
+
+.cadastro h3 {
+  color: #dfa1a1;
+  font-size: 20px; /* Aumentado o font-size */
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.cadastro .btn-danger {
+  background-color: #ff6b6b;
+}
+
+.cadastro .btn-danger:hover {
+  background-color: #e05252;
+}
+
+/* Estilos para a tabela */
+.user-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.user-list th,
+.user-list td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.user-list th {
+  background-color: #f8f8f8;
+  color: #d37f7f;
+  font-weight: bold;
+}
+
+.user-list tr:last-child td {
+  border-bottom: none;
+}
+
+.user-list td button {
+  /* Reutiliza o estilo do botão da lista */
+  padding: 6px 10px;
+  font-size: 13px;
+}

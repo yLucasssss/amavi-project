@@ -1,0 +1,33 @@
+
+<section class="welcome-section">
+  <h2>Bem-vinda ao Painel de Controle</h2>
+  <p>Aqui você encontra um resumo das suas atividades e atalhos para facilitar sua rotina.</p>
+</section>
+
+<section class="dashboard-cards">
+  <div class="card">
+    <h3>Total de Produtos</h3>
+    <p>{{ summary.totalProducts }}</p>
+  </div>
+  <div class="card">
+    <h3>Total de Produtos Vendidos</h3>
+    <p>{{ summary.totalSoldProducts }}</p>
+  </div>
+  <div class="card">
+    <h3>Produtos Restantes</h3>
+    <p>{{ summary.remainingProducts }}</p>
+  </div>
+  <div class="card">
+    <h3>Vendas do Mês</h3>
+    <p class="vendas">R$ {{ summary.salesThisMonth | number:'1.2-2' }}</p>
+  </div>
+</section>
+
+<section class="quick-actions">
+  <h3>Ações Rápidas</h3>
+  <div class="actions">
+    <button routerLink="/produtos/cadastrar">+ Novo Produto</button>
+    <button routerLink="/vendas/cadastrar">+ Nova Venda</button>
+    <button routerLink="/usuarios/cadastrar">Gerenciar Usuários</button>
+  </div>
+</section>

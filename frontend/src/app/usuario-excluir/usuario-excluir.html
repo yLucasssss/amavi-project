@@ -1,0 +1,71 @@
+<section class="welcome-section">
+  <h2>Excluir Usuário</h2>
+</section>
+
+<section class="cadastro">
+  <h3>Usuários Cadastrados</h3>
+  <div class="user-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Senha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosList">
+          <td>{{ usuario.nome }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>********</td>
+          <td>
+            <button type="button" (click)="confirmarExclusao(usuario.id)" class="btn-danger">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Success Modal -->
+<ng-template #successModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sucesso!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Usuário excluído com sucesso!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Error Modal -->
+<ng-template #errorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Erro!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Confirmation Modal -->
+<ng-template #confirmacaoExclusaoModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmar Exclusão</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Tem certeza que deseja excluir este usuário?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="cancelarExclusao()">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="procederExclusao()">Excluir</button>
+  </div>
+</ng-template>

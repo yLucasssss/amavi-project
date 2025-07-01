@@ -1,0 +1,68 @@
+<section class="welcome-section">
+  <h2>Alterar Produto</h2>
+</section>
+
+<section class="cadastro">
+  <form class="form-produto" (ngSubmit)="buscarProduto()" #searchForm="ngForm">
+    <label for="searchCode">Digite o Código do Produto:</label>
+    <input type="text" id="searchCode" name="searchCode" [(ngModel)]="searchCode" required #searchCodeInput="ngModel">
+    <div *ngIf="searchCodeInput.invalid && (searchCodeInput.dirty || searchCodeInput.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="searchCodeInput.errors?.['required']">Código do produto é obrigatório.</div>
+    </div>
+    <button type="submit" [disabled]="!searchForm.form.valid">Buscar</button>
+  </form>
+
+  <form class="form-produto" *ngIf="produtoEncontrado && produto" (ngSubmit)="salvarAlteracoes()" #alterarForm="ngForm">
+    <label for="productCode">Código do Produto:</label>
+    <input type="text" id="productCode" name="productCode" [(ngModel)]="produto.codigo" required #productCode="ngModel">
+    <div *ngIf="productCode.invalid && (productCode.dirty || productCode.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="productCode.errors?.['required']">Código do produto é obrigatório.</div>
+    </div>
+
+    <label for="productType">Tipo do Produto:</label>
+    <select id="productType" name="productType" [(ngModel)]="produto.tipo" required #productType="ngModel">
+      <option *ngFor="let tipo of tiposProduto" [value]="tipo.nome">{{ tipo.nome }}</option>
+    </select>
+    <div *ngIf="productType.invalid && (productType.dirty || productType.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="productType.errors?.['required']">Tipo do produto é obrigatório.</div>
+    </div>
+
+    <label for="productValue">Valor:</label>
+    <select id="productValue" name="productValue" [(ngModel)]="produto.valor" required #productValue="ngModel">
+      <option *ngFor="let valor of valoresProduto" [ngValue]="valor.valor">{{ valor.valor | currency:'BRL' }}</option>
+    </select>
+    <div *ngIf="productValue.invalid && (productValue.dirty || productValue.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="productValue.errors?.['required']">Valor é obrigatório.</div>
+    </div>
+
+    <button type="submit" [disabled]="!alterarForm.form.valid">Salvar Alterações</button>
+  </form>
+</section>
+
+<!-- Success Modal -->
+<ng-template #successModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sucesso!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Produto atualizado com sucesso!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Error Modal -->
+<ng-template #errorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Erro!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>

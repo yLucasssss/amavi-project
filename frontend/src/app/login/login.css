@@ -1,0 +1,47 @@
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #dfa1a1; /* Cor de fundo do seu projeto */
+}
+
+.login-card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card h2 {
+  color: #d37f7f;
+  margin-bottom: 25px;
+}
+
+.form-label {
+  color: #dfa1a1;
+  font-weight: bold;
+}
+
+.form-control {
+  border-color: #dfa1a1;
+}
+
+.btn-primary {
+  background-color: #d37f7f;
+  border-color: #d37f7f;
+}
+
+.btn-primary:hover {
+  background-color: #bf6d6d;
+  border-color: #bf6d6d;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}

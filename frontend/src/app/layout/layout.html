@@ -1,0 +1,57 @@
+<div class="sidebar">
+  <div class="logo">
+    <a routerLink="/dashboard"><img src="/logo_fundorosa.jpg" alt="Logo Amavi" /></a>
+  </div>
+  <nav class="menu">
+    <a routerLink="/dashboard">Início</a>
+
+    <div class="dropdown">
+      <div class="dropdown-header">
+        <span>Produto</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="submenu">
+        <a routerLink="/produtos/cadastrar">Cadastrar</a>
+        <a routerLink="/produtos/alterar">Alterar</a>
+        <a routerLink="/produtos/excluir">Excluir</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <div class="dropdown-header">
+        <span>Vendas</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="submenu">
+        <a routerLink="/vendas/cadastrar">Cadastrar Venda</a>
+        <a routerLink="/vendas/cancelar">Cancelar Venda</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <div class="dropdown-header">
+        <span>Usuários</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="submenu">
+        <a routerLink="/usuarios/cadastrar">Cadastrar</a>
+        <a routerLink="/usuarios/alterar">Alterar</a>
+        <a routerLink="/usuarios/excluir">Excluir</a>
+      </div>
+    </div>
+
+    <a routerLink="/parametrizacao">Parametrização</a>
+  </nav>
+</div>
+
+<div class="main-content">
+  <header class="top-bar">
+    <div class="user-info">
+      <span *ngIf="userName">Olá, {{ userName }}!</span>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

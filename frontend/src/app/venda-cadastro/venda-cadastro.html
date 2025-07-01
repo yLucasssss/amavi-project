@@ -1,0 +1,56 @@
+
+<section class="welcome-section">
+  <h2>Cadastrar Venda</h2>
+</section>
+
+<section class="cadastro">
+  <form class="form-produto" (ngSubmit)="buscarProduto()" #searchForm="ngForm">
+    <label for="productCode">Digite o Código do Produto:</label>
+    <input type="text" id="productCode" name="productCode" [(ngModel)]="searchCode" required #productCodeInput="ngModel">
+    <div *ngIf="productCodeInput.invalid && (productCodeInput.dirty || productCodeInput.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="productCodeInput.errors?.['required']">Código do produto é obrigatório.</div>
+    </div>
+    <button type="submit" [disabled]="!searchForm.form.valid">Buscar Produto</button>
+  </form>
+
+  <form class="form-produto" *ngIf="produtoEncontrado && produto">
+    <label>Código do Produto:</label>
+    <input type="text" [value]="produto.codigo" disabled>
+
+    <label>Tipo do Produto:</label>
+    <input type="text" [value]="produto.tipo" disabled>
+
+    <label>Valor:</label>
+    <input type="text" [value]="produto.valor | currency:'BRL'" disabled>
+
+    <button type="submit" (click)="confirmarVenda()">Confirmar Venda</button>
+  </form>
+</section>
+
+<!-- Success Modal -->
+<ng-template #successModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sucesso!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Venda realizada com sucesso!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Error Modal -->
+<ng-template #errorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Erro!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>

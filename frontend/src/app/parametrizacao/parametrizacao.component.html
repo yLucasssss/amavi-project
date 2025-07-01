@@ -1,0 +1,46 @@
+<div class="container">
+  <h2>Parametrização</h2>
+
+  <div class="parametrizacao-section">
+    <h3>Tipos de Produto</h3>
+    <div class="form-container">
+      <input type="text" [(ngModel)]="novoTipo" placeholder="Novo tipo de produto">
+      <button (click)="adicionarTipo()">Adicionar</button>
+    </div>
+    <ul>
+      <li *ngFor="let tipo of tiposProduto">
+        {{ tipo.nome }}
+        <button (click)="confirmarExclusao(tipo.id, 'tipo')">Excluir</button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="parametrizacao-section">
+    <h3>Valores de Produto</h3>
+    <div class="form-container">
+      <input type="number" [(ngModel)]="novoValor" placeholder="Novo valor de produto">
+      <button (click)="adicionarValor()">Adicionar</button>
+    </div>
+    <ul>
+      <li *ngFor="let valor of valoresProduto">
+        {{ valor.valor | currency:'BRL' }}
+        <button (click)="confirmarExclusao(valor.id, 'valor')">Excluir</button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<ng-template #confirmacaoExclusaoModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmar Exclusão</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Tem certeza que deseja excluir este item?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="cancelarExclusao()">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="procederExclusao()">Excluir</button>
+  </div>
+</ng-template>

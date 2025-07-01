@@ -1,0 +1,57 @@
+<section class="welcome-section">
+  <h2>Cadastro de Usuário</h2>
+</section>
+
+<section class="cadastro">
+  <form class="form-produto" (ngSubmit)="cadastrarUsuario()" #usuarioForm="ngForm">
+    <label for="userName">Nome:</label>
+    <input type="text" id="userName" name="userName" [(ngModel)]="usuario.nome" required #userName="ngModel">
+    <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="userName.errors?.['required']">Nome é obrigatório.</div>
+    </div>
+
+    <label for="userEmail">Email:</label>
+    <input type="email" id="userEmail" name="userEmail" [(ngModel)]="usuario.email" required email #userEmail="ngModel">
+    <div *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="userEmail.errors?.['required']">Email é obrigatório.</div>
+      <div *ngIf="userEmail.errors?.['email']">Email inválido.</div>
+    </div>
+
+    <label for="userPassword">Senha:</label>
+    <input type="password" id="userPassword" name="userPassword" [(ngModel)]="usuario.senha" required minlength="6" #userPassword="ngModel">
+    <div *ngIf="userPassword.invalid && (userPassword.dirty || userPassword.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="userPassword.errors?.['required']">Senha é obrigatória.</div>
+      <div *ngIf="userPassword.errors?.['minlength']">Senha deve ter no mínimo 6 caracteres.</div>
+    </div>
+
+    <button type="submit" [disabled]="!usuarioForm.form.valid">Cadastrar Usuário</button>
+  </form>
+</section>
+
+<!-- Success Modal -->
+<ng-template #successModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sucesso!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Usuário cadastrado com sucesso!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Error Modal -->
+<ng-template #errorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Erro!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>

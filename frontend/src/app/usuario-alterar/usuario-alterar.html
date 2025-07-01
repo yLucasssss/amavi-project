@@ -1,0 +1,74 @@
+<section class="welcome-section">
+  <h2>Alterar Usuário</h2>
+</section>
+
+<section class="cadastro">
+  <h3>Usuários Cadastrados</h3>
+  <div class="user-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Senha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosList">
+          <td>{{ usuario.nome }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>********</td>
+          <td>
+            <button type="button" (click)="selecionarUsuarioParaAlterar(usuario)">Alterar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <form class="form-produto" *ngIf="usuarioSelecionado" (ngSubmit)="salvarAlteracoes()" #alterarUsuarioForm="ngForm">
+    <h3>Alterar Dados do Usuário</h3>
+    <label for="editUserName">Nome:</label>
+    <input type="text" id="editUserName" name="editUserName" [(ngModel)]="usuarioSelecionado.nome" required #editUserName="ngModel">
+
+    <label for="editUserEmail">Email:</label>
+    <input type="email" id="editUserEmail" name="editUserEmail" [(ngModel)]="usuarioSelecionado.email" required email #editUserEmail="ngModel">
+
+    <label for="editUserPassword">Nova Senha (opcional):</label>
+    <input type="password" id="editUserPassword" name="editUserPassword" [(ngModel)]="usuarioSelecionado.senha" minlength="6" #editUserPassword="ngModel">
+    <div *ngIf="editUserPassword.invalid && (editUserPassword.dirty || editUserPassword.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="editUserPassword.errors?.['minlength']">Senha deve ter no mínimo 6 caracteres.</div>
+    </div>
+
+    <button type="submit" [disabled]="!alterarUsuarioForm.form.valid">Salvar Alterações</button>
+    <button type="button" (click)="resetForm()">Cancelar</button>
+  </form>
+</section>
+
+<!-- Success Modal -->
+<ng-template #successModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sucesso!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Usuário atualizado com sucesso!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Error Modal -->
+<ng-template #errorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Erro!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>

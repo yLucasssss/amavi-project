@@ -1,0 +1,78 @@
+
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #dfa1a1; /* Cor de fundo principal */
+}
+
+.alert {
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-success {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+
+.alert-danger {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-warning {
+  color: #664d03;
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+}
+
+.btn-close {
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em 0.25em;
+  color: #000;
+  background-color: transparent; /* Simplificado para evitar o erro do SVG */
+  border: 0;
+  border-radius: 0.25rem;
+  opacity: 0.5;
+}
+
+.btn-close:hover {
+  color: #000;
+  opacity: 0.75;
+}
+
+.modal-header {
+  background-color: #d37f7f;
+  color: white;
+  border-bottom: none;
+}
+
+.modal-title {
+  color: white;
+}
+
+.modal-body {
+  color: #d37f7f;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.btn-outline-dark {
+  color: #d37f7f;
+  border-color: #d37f7f;
+}
+
+.btn-outline-dark:hover {
+  background-color: #d37f7f;
+  color: white;
+}
