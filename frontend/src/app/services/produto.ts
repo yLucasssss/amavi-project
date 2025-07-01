@@ -15,7 +15,7 @@ export interface Produto {
 })
 export class ProdutoService {
 
-  private apiUrl = 'http://localhost:3000/api/produtos';
+  private apiUrl = 'https://amavi-project.onrender.com/api/produtos';
 
   constructor(private http: HttpClient) { }
 

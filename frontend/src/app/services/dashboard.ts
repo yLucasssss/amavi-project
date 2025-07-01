@@ -14,7 +14,7 @@ export interface DashboardSummary {
 })
 export class DashboardService {
 
-  private apiUrl = 'http://localhost:3000/api/dashboard-summary';
+  private apiUrl = 'https://amavi-project.onrender.com/api/dashboard-summary';
 
   constructor(private http: HttpClient) { }
 

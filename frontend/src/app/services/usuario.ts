@@ -14,7 +14,7 @@ export interface Usuario {
 })
 export class UsuarioService {
 
-  private apiUrl = 'http://localhost:3000/api/usuarios';
+  private apiUrl = 'https://amavi-project.onrender.com/api/usuarios';
 
   constructor(private http: HttpClient) { }
 

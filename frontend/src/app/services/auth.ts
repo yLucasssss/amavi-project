@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://amavi-project.onrender.com/api';
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
 
   get isLoggedIn(): Observable<boolean> {
