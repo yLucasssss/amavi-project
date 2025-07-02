@@ -13,7 +13,7 @@ export interface Venda {
 })
 export class VendaService {
 
-  private apiUrl = 'http://localhost:3000/api/vendas';
+  private apiUrl = 'https://amavi-project.onrender.com/api/vendas';
 
   constructor(private http: HttpClient) { }
 
