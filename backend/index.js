@@ -17,7 +17,19 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
+  ssl: { "rejectUnauthorized": false } // Temporariamente desabilitado para depuração
 });
+
+// Teste de conexão do banco de dados
+pool.getConnection()
+  .then(connection => {
+    console.log('Conexão com o banco de dados estabelecida com sucesso!');
+    connection.release(); // Libera a conexão de volta para o pool
+  })
+  .catch(err => {
+    console.error('Erro ao conectar ao banco de dados:', err.message);
+    console.error('Detalhes do erro:', err);
+  });
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -258,17 +270,24 @@ app.get('/api/usuarios/:id', authenticateToken, async (req, res) => {
 app.post('/api/usuarios', async (req, res) => {
   try {
     const { nome, email, senha } = req.body;
+    console.log('Recebida requisição POST para /api/usuarios com:', { nome, email, senha: '***' }); // Loga os dados recebidos
 
     // Verificar se o email já existe
     const [existingUser] = await pool.query('SELECT id FROM usuarios WHERE email = ?', [email]);
     if (existingUser.length > 0) {
+      console.log('Email já cadastrado:', email);
       return res.status(409).json({ message: 'Este email já está cadastrado.' });
     }
 
     const hashedPassword = await bcrypt.hash(senha, 10); // Hash da senha
+    console.log('Senha hashada com sucesso.');
+
     const [result] = await pool.query('INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)', [nome, email, hashedPassword]);
+    console.log('Usuário inserido no banco de dados com ID:', result.insertId);
     res.status(201).json({ id: result.insertId, nome, email });
   } catch (error) {
+    console.error('Erro na rota POST /api/usuarios:', error.message);
+    console.error('Detalhes do erro:', error); // Loga o objeto de erro completo
     res.status(500).json({ error: error.message });
   }
 });
