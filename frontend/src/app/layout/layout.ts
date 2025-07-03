@@ -19,10 +19,23 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     this.userName = this.authService.getUserName();
 
-    const dropdowns = document.querySelectorAll('.dropdown-header');
-    dropdowns.forEach(dropdown => {
-      dropdown.addEventListener('click', () => {
-        dropdown.parentElement?.classList.toggle('open');
+    const dropdownHeaders = document.querySelectorAll('.dropdown-header');
+
+    dropdownHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const parent = header.parentElement;
+        if (!parent) return;
+
+        const wasOpen = parent.classList.contains('open');
+
+        // Fecha todos os dropdowns
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+
+        // Se o dropdown clicado não estava aberto, abre ele
+        if (!wasOpen) {
+          parent.classList.add('open');
+        }
+        // Se já estava aberto, o passo anterior já o fechou.
       });
     });
   }
