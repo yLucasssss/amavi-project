@@ -39,8 +39,10 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // Rota de Recuperação de Senha
 app.post('/api/recuperar-senha', async (req, res) => {
   const { email } = req.body;
+  console.log('Requisição de recuperação de senha para o email:', email);
   try {
     const [rows] = await pool.query('SELECT * FROM usuarios WHERE email = ?', [email]);
+    console.log('Resultado da consulta de usuário:', rows);
     if (rows.length === 0) {
       return res.status(400).json({ message: 'Usuário não encontrado' });
     }
