@@ -32,6 +32,14 @@ export class AuthService {
     );
   }
 
+  recuperarSenha(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/recuperar-senha`, { email });
+  }
+
+  redefinirSenha(token: string, senha: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/redefinir-senha/${token}`, { senha });
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userName'); // Remove o nome do usuário

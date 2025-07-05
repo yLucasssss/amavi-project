@@ -12,9 +12,13 @@ import { UsuarioExcluirComponent } from './usuario-excluir/usuario-excluir';
 import { ParametrizacaoComponent } from './parametrizacao/parametrizacao.component';
 import { LoginComponent } from './login/login';
 import { AuthGuard } from './guards/auth-guard';
+import { RecuperarSenhaComponent } from './recuperar-senha/recuperar-senha.component'; // Importe o novo componente
+import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component'; // Importe o novo componente
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'recuperar-senha', component: RecuperarSenhaComponent }, // Adicione a nova rota
+  { path: 'redefinir-senha/:token', component: RedefinirSenhaComponent }, // Adicione a nova rota
   { path: 'usuarios/cadastrar', component: UsuarioCadastroComponent }, // Movida para fora da proteção
   {
     path: '',

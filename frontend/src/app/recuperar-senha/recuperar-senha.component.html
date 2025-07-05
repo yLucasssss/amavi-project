@@ -1,0 +1,21 @@
+<div class="recuperar-senha-container">
+  <div class="recuperar-senha-card">
+    <h2 class="text-center mb-4">Recuperar Senha</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+      </div>
+      <div *ngIf="mensagem" class="alert alert-success mt-3">
+        {{ mensagem }}
+      </div>
+      <div *ngIf="erro" class="alert alert-danger mt-3">
+        {{ erro }}
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Enviar</button>
+    </form>
+    <div class="mt-3 text-center">
+      <a routerLink="/login">Voltar para o Login</a>
+    </div>
+  </div>
+</div>

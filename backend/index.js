@@ -4,6 +4,8 @@ const cors = require('cors');
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 const app = express();
 app.use(cors());
@@ -18,7 +20,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  ssl: { "rejectUnauthorized": false }
+  ssl: { rejectUnauthorized: false } // Forçar SSL, mas não rejeitar certificados autoassinados (comum em proxies)
 });
 
 // Teste de conexão do banco de dados
@@ -33,6 +35,74 @@ pool.getConnection()
   });
 
 const JWT_SECRET = process.env.JWT_SECRET;
+
+// Rota de Recuperação de Senha
+app.post('/api/recuperar-senha', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const [rows] = await pool.query('SELECT * FROM usuarios WHERE email = ?', [email]);
+    if (rows.length === 0) {
+      return res.status(400).json({ message: 'Usuário não encontrado' });
+    }
+
+    const user = rows[0];
+    const token = crypto.randomBytes(20).toString('hex');
+    const expires = Date.now() + 3600000; // 1 hora
+
+    await pool.query('UPDATE usuarios SET reset_password_token = ?, reset_password_expires = ? WHERE id = ?', [token, expires, user.id]);
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: 'Recuperação de Senha',
+      text: `Você está recebendo este e-mail porque você (ou outra pessoa) solicitou a redefinição da senha da sua conta.\n\n` +
+        `Por favor, clique no link a seguir ou cole-o em seu navegador para concluir o processo:\n\n` +
+        `http://localhost:4200/redefinir-senha/${token}\n\n` +
+        `Se você não solicitou isso, ignore este e-mail e sua senha permanecerá inalterada.\n`
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.json({ message: 'E-mail de recuperação enviado' });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Rota para Redefinir a Senha
+app.post('/api/redefinir-senha/:token', async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { senha } = req.body;
+
+    const [rows] = await pool.query('SELECT * FROM usuarios WHERE reset_password_token = ? AND reset_password_expires > ?', [token, Date.now()]);
+
+    if (rows.length === 0) {
+      return res.status(400).json({ message: 'Token de redefinição de senha inválido ou expirado.' });
+    }
+
+    const user = rows[0];
+    const hashedPassword = await bcrypt.hash(senha, 10);
+
+    await pool.query('UPDATE usuarios SET senha = ?, reset_password_token = NULL, reset_password_expires = NULL WHERE id = ?', [hashedPassword, user.id]);
+
+    res.json({ message: 'Senha redefinida com sucesso' });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Middleware de autenticação
 const authenticateToken = (req, res, next) => {
