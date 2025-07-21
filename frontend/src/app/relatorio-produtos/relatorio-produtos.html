@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h2>Relatório de Produtos</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Tipo</th>
+        <th>Valor</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos">
+        <td>{{ produto.codigo }}</td>
+        <td>{{ produto.tipo }}</td>
+        <td>{{ produto.valor | currency:'BRL' }}</td>
+        <td>{{ produto.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -40,7 +40,18 @@
       </div>
     </div>
 
-    <a routerLink="/parametrizacao">Parametrização</a>
+    <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRelatorios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Relatórios
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownRelatorios">
+              <li><a class="dropdown-item" routerLink="/relatorios/produtos">Relatório de Produtos</a></li>
+              <li><a class="dropdown-item" routerLink="/relatorios/vendas">Relatório de Vendas</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/parametrizacao">Parametrização</a>
+          </li>
   </nav>
 </div>
 

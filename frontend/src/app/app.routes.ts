@@ -12,14 +12,16 @@ import { UsuarioExcluirComponent } from './usuario-excluir/usuario-excluir';
 import { ParametrizacaoComponent } from './parametrizacao/parametrizacao.component';
 import { LoginComponent } from './login/login';
 import { AuthGuard } from './guards/auth-guard';
-import { RecuperarSenhaComponent } from './recuperar-senha/recuperar-senha.component'; // Importe o novo componente
-import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component'; // Importe o novo componente
+import { RecuperarSenhaComponent } from './recuperar-senha/recuperar-senha.component';
+import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component';
+import { RelatorioProdutosComponent } from './relatorio-produtos/relatorio-produtos';
+import { RelatorioVendasComponent } from './relatorio-vendas/relatorio-vendas';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'recuperar-senha', component: RecuperarSenhaComponent }, // Adicione a nova rota
-  { path: 'redefinir-senha/:token', component: RedefinirSenhaComponent }, // Adicione a nova rota
-  { path: 'usuarios/cadastrar', component: UsuarioCadastroComponent }, // Movida para fora da proteção
+  { path: 'recuperar-senha', component: RecuperarSenhaComponent },
+  { path: 'redefinir-senha/:token', component: RedefinirSenhaComponent },
+  { path: 'usuarios/cadastrar', component: UsuarioCadastroComponent },
   {
     path: '',
     component: LayoutComponent,
@@ -34,8 +36,10 @@ export const routes: Routes = [
       { path: 'vendas/cancelar', component: VendaCancelarComponent },
       { path: 'usuarios/alterar', component: UsuarioAlterarComponent },
       { path: 'usuarios/excluir', component: UsuarioExcluirComponent },
-      { path: 'parametrizacao', component: ParametrizacaoComponent } // Adiciona a nova rota
+      { path: 'parametrizacao', component: ParametrizacaoComponent },
+      { path: 'relatorios/produtos', component: RelatorioProdutosComponent },
+      { path: 'relatorios/vendas', component: RelatorioVendasComponent }
     ]
   },
-  { path: '**', redirectTo: 'login' } // Redireciona para o login se a rota não for encontrada
+  { path: '**', redirectTo: 'login' }
 ];
